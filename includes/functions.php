@@ -845,7 +845,7 @@ function uploadImage($image_type, $edit, $id, $front)
 		$file_ext = explode('.', $file_name);
 		$file_ext = strtolower(end($file_ext));
 
-		$allowed = array('jpg', 'png');
+		$allowed = array('jpg', 'png', 'JPG');
 
 		if (in_array($file_ext, $allowed)) {
 			if ($file_error === 0) {
@@ -866,6 +866,8 @@ function uploadImage($image_type, $edit, $id, $front)
 							$im = imagecreatefromgif($path_to_image_directory . $image_final);
 						} else if (preg_match('/[.](png)$/', $image_final)) {
 							$im = imagecreatefrompng($path_to_image_directory . $image_final);
+						} else if (preg_match('/[.](JPG)$/', $image_final)) {
+							$im = imagecreatefromjpeg($path_to_image_directory . $image_final);
 						}
 
 						$ox = imagesx($im);

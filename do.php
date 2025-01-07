@@ -50,18 +50,18 @@ if (isset($_REQUEST["form"])) {
 						$month = time() + 2 * 60 * 60 + 60 * 60 * 24 * 30;
 
 						if ($user['employee_status'] == 3) {
-							setcookie('idk_session_front_employee_skladistar', $user['employee_key'], $month, '/b2b');
+							setcookie('idk_session_front_employee_skladistar', $user['employee_key'], $month, '/crm');
 						} else {
-							setcookie('idk_session_front_employee', $user['employee_key'], $month, '/b2b');
+							setcookie('idk_session_front_employee', $user['employee_key'], $month, '/crm');
 						}
 					} else {
 
 						$day = time() + 2 * 60 * 60 + 60 * 60 * 24;
 
 						if ($user['employee_status'] == 3) {
-							setcookie('idk_session_front_employee_skladistar', $user['employee_key'], $day, '/b2b');
+							setcookie('idk_session_front_employee_skladistar', $user['employee_key'], $day, '/crm');
 						} else {
-							setcookie('idk_session_front_employee', $user['employee_key'], $day, '/b2b');
+							setcookie('idk_session_front_employee', $user['employee_key'], $day, '/crm');
 						}
 					}
 
@@ -101,10 +101,10 @@ if (isset($_REQUEST["form"])) {
 
 					if ($login_rm == "on") {
 						$month = time() + 2 * 60 * 60 + 60 * 60 * 24 * 30;
-						setcookie('idk_session_front', $user['client_key'], $month, '/b2b');
+						setcookie('idk_session_front', $user['client_key'], $month, '/crm');
 					} else {
 						$day = time() + 2 * 60 * 60 + 60 * 60 * 24;
-						setcookie('idk_session_front', $user['client_key'], $day, '/b2b');
+						setcookie('idk_session_front', $user['client_key'], $day, '/crm');
 					}
 
 					//Update visits statistics
@@ -151,16 +151,16 @@ if (isset($_REQUEST["form"])) {
 			$mileage_start_time = getMileageStartTime($logged_employee_id);
 
 			unset($_COOKIE['idk_session_front']);
-			setcookie('idk_session_front', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/b2b');
+			setcookie('idk_session_front', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/crm');
 
 			unset($_COOKIE['idk_session_front_employee']);
-			setcookie('idk_session_front_employee', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/b2b');
+			setcookie('idk_session_front_employee', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/crm');
 
 			unset($_COOKIE['idk_session_front_employee_skladistar']);
-			setcookie('idk_session_front_employee_skladistar', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/b2b');
+			setcookie('idk_session_front_employee_skladistar', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/crm');
 
 			unset($_COOKIE['idk_session_front_client']);
-			setcookie('idk_session_front_client', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/b2b');
+			setcookie('idk_session_front_client', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/crm');
 
 			header("Location: login?mess=1");
 
@@ -190,7 +190,7 @@ if (isset($_REQUEST["form"])) {
 			if ($number_of_rows !== 0) {
 
 				$day = time() + 2 * 60 * 60 + 60 * 60 * 24;
-				setcookie('idk_session_front_client', $client_id, $day, '/b2b');
+				setcookie('idk_session_front_client', $client_id, $day, '/crm');
 
 				$client = $client_query->fetch();
 				$client_id = $client['client_id'];
@@ -1797,7 +1797,7 @@ if (isset($_REQUEST["form"])) {
 				));
 
 				unset($_COOKIE['idk_session_front_client']);
-				setcookie('idk_session_front_client', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/b2b');
+				setcookie('idk_session_front_client', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/crm');
 
 				if (isset($logged_client_id) and $logged_client_id != 0) {
 					header("Location: index?mess=4");
@@ -2056,7 +2056,7 @@ if (isset($_REQUEST["form"])) {
 			));
 
 			unset($_COOKIE['idk_session_front_client']);
-			setcookie('idk_session_front_client', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/b2b');
+			setcookie('idk_session_front_client', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/crm');
 
 			if (isset($logged_client_id) and $logged_client_id != 0) {
 				header("Location: index?mess=5");

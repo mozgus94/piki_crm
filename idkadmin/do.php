@@ -42,10 +42,10 @@ if (isset($_REQUEST["form"])) {
 
 				if ($login_rm == "on") {
 					$month = time() + 2 * 60 * 60 + 60 * 60 * 24 * 30;
-					setcookie('idk_session', $user['employee_key'], $month, '/b2b');
+					setcookie('idk_session', $user['employee_key'], $month, '/crm');
 				} else {
 					$day = time() + 2 * 60 * 60 + 60 * 60 * 24;
-					setcookie('idk_session', $user['employee_key'], $day, '/b2b');
+					setcookie('idk_session', $user['employee_key'], $day, '/crm');
 				}
 
 				//Add to log
@@ -73,7 +73,7 @@ if (isset($_REQUEST["form"])) {
 			addLog($logged_employee_id, $log_desc, $log_date);
 
 			unset($_COOKIE['idk_session']);
-			setcookie('idk_session', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/b2b');
+			setcookie('idk_session', '', time() + 2 * 60 * 60 - 60 * 60 * 24 * 30, '/crm');
 
 			header("Location: login?mess=1");
 

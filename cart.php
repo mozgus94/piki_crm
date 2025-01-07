@@ -292,7 +292,9 @@ $getUnreadMessages = getUnreadMessages();
                                                     <div class="row align-items-center idk_cart_item_price_quantity_row">
                                                         <div class="col-6">
                                                             <p class="idk_cart_item_price">
-                                                                VPC: <?php echo number_format($product_price, 3, ',', '.') . " " . $product_currency; ?>
+                                                                VPC: <?php echo isset($product_price) && is_numeric($product_price) 
+                                                                        ? number_format($product_price, 3, ',', '.') . " " . $product_currency 
+                                                                        : "N/A"; ?>
                                                             </p>
 
                                                             <?php if (isset($logged_employee_id) and $logged_employee_id != 0) { ?>
@@ -351,9 +353,15 @@ $getUnreadMessages = getUnreadMessages();
                                             <p class="idk_tax_paragraph">PDV 17%</p>
                                         </div>
                                         <div class="col-6 text-right">
-                                            <p class="idk_total_value"><?php echo number_format($order_total_price, 3, ',', '.'); ?> KM</p>
-                                            <p class="idk_total_rabat_value"><?php echo number_format($order_total_rabat, 3, ',', '.'); ?> KM</p>
-                                            <p class="idk_tax_value"><?php echo number_format($order_total_tax, 3, ',', '.'); ?> KM</p>
+                                            <p class="idk_total_value"> <?php echo isset($order_total_price) && is_numeric($order_total_price) 
+                                                                            ? number_format($order_total_price, 3, ',', '.') . " KM" 
+                                                                            : "0.000 KM"; ?> KM</p>
+                                            <p class="idk_total_rabat_value"> <?php echo isset($order_total_rabat) && is_numeric($order_total_rabat) 
+                                                                            ? number_format($order_total_rabat, 3, ',', '.') . " KM" 
+                                                                            : "0.000 KM"; ?> KM</p>
+                                            <p class="idk_tax_value">  <?php echo isset($order_total_tax) && is_numeric($order_total_tax) 
+                                                                            ? number_format($order_total_tax, 3, ',', '.') . " KM" 
+                                                                            : "0.000 KM"; ?> KM</p>
                                         </div>
                                     </div>
 
@@ -362,7 +370,9 @@ $getUnreadMessages = getUnreadMessages();
                                             <p class="idk_to_pay_paragraph">Za platiti</p>
                                         </div>
                                         <div class="col-6 text-right">
-                                            <p class="idk_to_pay_value"><?php echo number_format($order_to_pay, 2, ',', '.'); ?> KM</p>
+                                            <p class="idk_to_pay_value"><?php echo isset($order_to_pay) && is_numeric($order_to_pay) 
+                                                                        ? number_format($order_to_pay, 2, ',', '.') . " KM" 
+                                                                        : "0.00 KM"; ?> KM</p>
                                         </div>
                                     </div>
 
