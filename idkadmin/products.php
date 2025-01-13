@@ -48,143 +48,48 @@ if (isset($_GET["table_page"])) {
         case "list":
       ?>
 
-          <div class="row">
-            <div class="col-xs-8">
-              <h1><i class="fa fa-tasks idk_color_green" aria-hidden="true"></i> Proizvodi</h1>
-            </div>
-            <div class="col-xs-4 text-right idk_margin_top10">
-              <a href="<?php getSiteUrl(); ?>idkadmin/products?page=add" class="btn material-btn material-btn-icon-success material-btn_success main-container__column material-btn-icon-responsive"><i class="fa fa-plus" aria-hidden="true"></i> <span>Dodaj</span></a>
-            </div>
-            <div class="col-xs-12">
-              <hr>
-            </div>
+        <div class="row">
+          <div class="col-xs-8">
+            <h1><i class="fa fa-tasks idk_color_green" aria-hidden="true"></i> Proizvodi</h1>
           </div>
+          <div class="col-xs-4 text-right idk_margin_top10">
+            <a href="<?php getSiteUrl(); ?>idkadmin/products?page=add" class="btn material-btn material-btn-icon-success material-btn_success main-container__column material-btn-icon-responsive"><i class="fa fa-plus" aria-hidden="true"></i> <span>Dodaj</span></a>
+          </div>
+          <div class="col-xs-12">
+            <hr>
+          </div>
+        </div>
 
-          <div class="row">
-            <div class="col-md-12">
-              <div class="content_box">
-
-                <?php if (isset($logged_employee_id) and $logged_employee_id = 1) { ?>
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <a id="idk_import_json_url_products" href="<?php getSiteUrl(); ?>idkadmin/do.php?form=import_json_url_products"><button class="btn material-btn material-btn_success">SYNC PROIZVODA</button></a>
-                      <br>
-                      <br>
-                      <!-- <a id="idk_update_product_categories_uncategorized" href="<?php //getSiteUrl(); 
-                                                                                      ?>idkadmin/do.php?form=update_product_categories_uncategorized"><button class="btn material-btn material-btn_success">UPDATE KATEGORIJA PROIZVODA - NEKATEGORIZIRANO</button></a>
-                      <br>
-                      <br> -->
-                    </div>
-                  </div>
-
-                  <script>
-                    $(document).ready(function() {
-                      $('#idk_import_json_url_products').on('click', function() {
-                        $('#idk_products_table_div').css({
-                          'text-align': 'center',
-                          'position': 'absolute',
-                          'top': '50%',
-                          'transform': 'translateY(-50%)'
-                        });
-                        $('#idk_products_table_div').html('<img alt="Učitavanje..." src="<?php getSiteUrl(); ?>idkadmin/images/ajax-loader.gif" style="margin: 0 auto;"><p>Import proizvoda u toku ...</p>');
-                      });
-
-                      $('#idk_update_product_categories_uncategorized').on('click', function() {
-                        $('#idk_products_table_div').css({
-                          'text-align': 'center',
-                          'position': 'absolute',
-                          'top': '50%',
-                          'transform': 'translateY(-50%)'
-                        });
-                        $('#idk_products_table_div').html('<img alt="Učitavanje..." src="<?php getSiteUrl(); ?>idkadmin/images/ajax-loader.gif" style="margin: 0 auto;"><p>Update kategorija proizvoda u toku ...</p>');
-                      });
-                    });
-                  </script>
-                <?php } ?>
-
-                <div class="row">
-                  <div class="col-xs-12" id="idk_products_table_div">
-
-                    <!-- Store site url for use in datatables -->
-                    <input type="hidden" name="site_url" id="site_url" value="<?php getSiteUrl(); ?>">
-                    <input type="hidden" name="table_page" id="table_page" value="<?php echo $table_page; ?>">
-
-                    <!-- Success and error handling -->
-                    <?php
-                    if (isset($_GET['mess'])) {
-                      $mess = $_GET['mess'];
-                    } else {
-                      $mess = 0;
-                    }
-
-                    if ($mess == 1) {
-                      echo '<div class="alert material-alert material-alert_success">Uspješno ste dodali novi proizvod.</div>';
-                    } elseif ($mess == 2) {
-                      echo '<div class="alert material-alert material-alert_danger">Greška: Proizvod već postoji u bazi podataka.</div>';
-                    } elseif ($mess == 3) {
-                      echo '<div class="alert material-alert material-alert_success">Uspješno ste uredili proizvod.</div>';
-                    } elseif ($mess == 4) {
-                      echo '<div class="alert material-alert material-alert_success">Uspješno ste arhivirali proizvod.</div>';
-                    } elseif ($mess == 5) {
-                      echo '<div class="alert material-alert material-alert_danger">Greška: Proizvod koji pokušavate urediti ne postoji u bazi podataka.</div>';
-                    } elseif ($mess == 6) {
-                      echo '<div class="alert material-alert material-alert_danger">Greška: Proizvod ne postoji u bazi podataka.</div>';
-                    } elseif ($mess == 7) {
-                      echo '<div class="alert material-alert material-alert_danger">Greška: Polja označena sa * su obavezna.</div>';
-                    } elseif ($mess == 8) {
-                      echo '<div class="alert material-alert material-alert_success">Uspješno ste importovali JSON datoteku.</div>';
-                    } elseif ($mess == 9) {
-                      echo '<div class="alert material-alert material-alert_danger">Greška: JSON datoteka koju ste pokušali importovati nije validna.</div>';
-                    } elseif ($mess == 10) {
-                      echo '<div class="alert material-alert material-alert_success">Uspješno ste importovali proizvode.</div>';
-                    } elseif ($mess == 11) {
-                      echo '<div class="alert material-alert material-alert_danger">Greška: Proizvod s tim API ID brojem već postoji u bazi podataka.</div>';
-                    }
-                    ?>
-
-                    <!-- Products table -->
-                    <table id="idk_products_table" class="display" cellspacing="0" width="100%">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>Naziv</th>
-                          <th>API ID</th>
-                          <th>Dobavljač</th>
-                          <th>Cijena</th>
-                          <th>Na stanju</th>
-                          <th></th>
-                          <th>SKU</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                    <!-- End products table -->
-
-                    <!-- Modal -->
-                    <div class="modal material-modal material-modal_danger fade" id="archiveModal">
-                      <div class="modal-dialog">
-                        <div class="modal-content material-modal__content">
-                          <div class="modal-header material-modal__header">
-                            <button class="close material-modal__close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title material-modal__title">Arhiviranje</h4>
-                          </div>
-                          <div class="modal-body material-modal__body">
-                            <p>Jeste li sigurni da želite arhivirati proizvod?</p>
-                          </div>
-                          <div class="modal-footer material-modal__footer">
-                            <button class="btn material-btn material-btn" data-dismiss="modal">Zatvori</button>
-                            <a id="archive_link" href=""><button class="btn btn-primary material-btn material-btn_danger">ARHIVIRAJ</button></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="content_box">
+              <div id="idkProductsTableContainer">
+                <table id="idkProductsTable" class="display" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Slika</th>
+                      <th>Šifra</th>
+                      <th>Naziv</th>
+                      <th>MPC</th>
+                      <th>VPC</th>
+                      <th>Akcije</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
               </div>
             </div>
           </div>
+        </div>
+
+        <script type="module" src="modules/products/productsData.js"></script>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            if (window.fetchAndRenderProducts) {
+              window.fetchAndRenderProducts();
+            }
+          });
+        </script>
 
           <?php
 

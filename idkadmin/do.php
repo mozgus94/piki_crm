@@ -2569,22 +2569,12 @@ if (isset($_REQUEST["form"])) {
 					$table_page = 0;
 				}
 
-				if (!empty($_POST['product_name']) and !empty($_POST['product_api_id'])) {
+				if (!empty($_POST['product_name'])) {
 
 					$product_name = $_POST['product_name'];
-					$product_api_id = $_POST['product_api_id'];
+					$product_mpc = $_POST['product_mpc'];
 
-					//Check if product exists
-					$check_query = $db->prepare("
-						SELECT product_id
-						FROM idk_product
-						WHERE product_api_id = :product_api_id");
-
-					$check_query->execute(array(
-						':product_api_id' => $product_api_id
-					));
-
-					$number_of_rows = $check_query->rowCount();
+					$number_of_rows = 0;
 
 					if ($number_of_rows == 0) {
 
@@ -2616,9 +2606,9 @@ if (isset($_REQUEST["form"])) {
 
 						$query = $db->prepare("
 							INSERT INTO idk_product
-								(product_name, product_api_id, product_price, product_quantity, product_active, product_image, product_desc, product_currency, product_tax_name, product_tax_percentage, product_featured, product_unit, product_supplier, product_sku, created_at, updated_at)
+								(product_name, product_price, product_quantity, product_active, product_image, product_desc, product_currency, product_tax_name, product_tax_percentage, product_featured, product_unit, product_supplier, product_sku, mpc_price, created_at, updated_at)
 							VALUES
-								(:product_name, :product_api_id, :product_price, :product_quantity, :product_active, :product_image, :product_desc, :product_currency, :product_tax_name, :product_tax_percentage, :product_featured, :product_unit, :product_supplier, :product_sku, :created_at, :updated_at)");
+								(:product_name, :product_price, :product_quantity, :product_active, :product_image, :product_desc, :product_currency, :product_tax_name, :product_tax_percentage, :product_featured, :product_unit, :product_supplier, :product_sku, :mpc_price, :created_at, :updated_at)");
 
 						$query->execute(array(
 							':product_api_id' => $product_api_id,
@@ -2635,6 +2625,7 @@ if (isset($_REQUEST["form"])) {
 							':product_unit' => $product_unit,
 							':product_supplier' => $product_supplier,
 							':product_sku' => $product_sku,
+							':mpc_price' => $mpc_price,
 							':created_at' => $created_at,
 							':updated_at' => $updated_at
 						));
